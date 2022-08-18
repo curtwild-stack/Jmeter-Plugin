@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="InzentTCPSampler">
+	<property environment="env" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="source" value="1.6" />
+	<property name="target" value="1.6" />
+	<property name="encoding" value="ms949" />
+
+	<path id="classpath">
+		<pathelement location="target/classes" />
+		<fileset dir="lib/" includes="**/*.jar" />
+	</path>
+
+	<target name="clean">
+		<delete dir="target" />
+	</target>
+
+	<target name="init" depends="clean">
+		<mkdir dir="target/classes" />
+		<copy includeemptydirs="false" todir="target/classes">
+			<fileset dir="src/main/resources" />
+		</copy>
+	</target>
+
+	<target name="build" depends="init">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" source="${source}" target="${target}" encoding="${encoding}" includeantruntime="false">
+			<src path="src/main/java" />
+			<classpath refid="classpath" />
+		</javac>
+		<jar destfile="${ant.project.name}.jar" basedir="target/classes" />
+	</target>
+</project>
