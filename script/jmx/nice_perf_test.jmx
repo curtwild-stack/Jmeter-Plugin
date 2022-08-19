@@ -143,10 +143,16 @@ vars.put(&quot;tid&quot;, tid) ;
           <stringProp name="throughput">${__groovy(props.get(&quot;TPS_PER_USER&quot;\, &quot;1&quot;).toInteger() * 60)}</stringProp>
         </ConstantThroughputTimer>
         <hashTree/>
-        <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="Switch Controller (부하비율 설정)" enabled="true">
-          <stringProp name="TestPlan.comments">매핑:바이패스 비윯 7:3</stringProp>
-          <stringProp name="SwitchController.value">${__groovy(new Random().nextInt(10) &lt; 7 ? 0 : 1)}</stringProp>
-        </SwitchController>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller (70%)" enabled="true">
+          <intProp name="ThroughputController.style">1</intProp>
+          <boolProp name="ThroughputController.perThread">false</boolProp>
+          <intProp name="ThroughputController.maxThroughput">1</intProp>
+          <FloatProperty>
+            <name>ThroughputController.percentThroughput</name>
+            <value>50.0</value>
+            <savedValue>0.0</savedValue>
+          </FloatProperty>
+        </ThroughputController>
         <hashTree>
           <com.inzent.igate.jmeter.sampler.InzentTCPSampler guiclass="com.inzent.igate.jmeter.control.gui.InzentTCPSamplerGui" testclass="com.inzent.igate.jmeter.sampler.InzentTCPSampler" testname="TCP(Inzent) Sampler (매핑거래)" enabled="true">
             <stringProp name="InzentTCPSampler.server">localhost</stringProp>
@@ -165,6 +171,18 @@ vars.put(&quot;tid&quot;, tid) ;
             <stringProp name="InzentTCPSampler.packetHeaderCompensation">0</stringProp>
           </com.inzent.igate.jmeter.sampler.InzentTCPSampler>
           <hashTree/>
+        </hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Throughput Controller (30%)" enabled="true">
+          <intProp name="ThroughputController.style">1</intProp>
+          <boolProp name="ThroughputController.perThread">false</boolProp>
+          <intProp name="ThroughputController.maxThroughput">1</intProp>
+          <FloatProperty>
+            <name>ThroughputController.percentThroughput</name>
+            <value>50.0</value>
+            <savedValue>0.0</savedValue>
+          </FloatProperty>
+        </ThroughputController>
+        <hashTree>
           <com.inzent.igate.jmeter.sampler.InzentTCPSampler guiclass="com.inzent.igate.jmeter.control.gui.InzentTCPSamplerGui" testclass="com.inzent.igate.jmeter.sampler.InzentTCPSampler" testname="TCP(Inzent) Sampler (바이패스)" enabled="true">
             <stringProp name="InzentTCPSampler.server">localhost</stringProp>
             <boolProp name="InzentTCPSampler.reUseConnection">true</boolProp>
